@@ -5,7 +5,7 @@ import datetime as dt
 serverPort = 8888
 TCP_IP = "127.0.0.1"
 serverSocket = socket(AF_INET,SOCK_STREAM)
-serverSocket.bind((TCP_IP,serverPort))
+serverSocket.bind(('',serverPort))
 serverSocket.listen(5)
 print ("Running and Listening for Knocks")
 buffer_size = 1024
