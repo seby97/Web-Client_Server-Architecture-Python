@@ -22,8 +22,6 @@ def statistic(lst, pckt, size):
     minRTT = min(lst)
     maxRTT = max(lst)
     length = len(lst)
-    plt.hist(lst, 'auto')
-    plt.show()
     averageRTT = sum(lst)/length
     differences = [x - averageRTT for x in lst]
     squared_differences = [d ** 2 for d in differences]
@@ -33,6 +31,8 @@ def statistic(lst, pckt, size):
     display_message = "\n" + ' The Minimum is {}, \n The Maximum is {}, \n The Average is {}, \n The Standard Deviation of the Population is {}'.format(minRTT, maxRTT, averageRTT, standard_deviation)
     print(display_message)
     print("\n", float(pckt/size) * 100, "% of packets were lost")
+    plt.hist(lst, 'auto')
+    plt.show()
 
 for i in range(x):
     now = dt.datetime.now()
@@ -46,7 +46,7 @@ for i in range(x):
         message, address = clientSocket.recvfrom(1024)
         elapsed = (time.perf_counter()-start)
         message = message.decode('utf-8')
-        print(message, "RTT", " ", elapsed)
+        print(message, "(System Time) ,   RTT", " - ", elapsed)
         list.append(elapsed)
 
     except timeout:
@@ -55,9 +55,8 @@ for i in range(x):
 
 
 statistic(list, packet_count, x)
-clientSocket.settimeout(15)
-if timeout == 0:
-    clientSocket.close()
+clientSocket.settimeout(2)
+clientSocket.close()
 
 
 
